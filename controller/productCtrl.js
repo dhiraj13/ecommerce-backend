@@ -30,7 +30,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title);
     }
-    const updateProduct = await Product.findOneAndUpdate(id, req.body, {
+    const updateProduct = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.json(updateProduct);
@@ -51,8 +51,16 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 const getAllProduct = asyncHandler(async (req, res) => {
   try {
-    const allProduct = await Product.find();
-    res.json(allProduct);
+    // Filtering
+    const queryObj = { ...req.query };
+    const excludeFields = ["page", "sort", "limit", "fields"];
+    excludeFields.forEach((el) => delete queryObj[el]);
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    const query = Product.find(JSON.parse(queryStr));
+    const product = await query;
+    res.json(product);
   } catch (error) {
     throw new Error(error);
   }
