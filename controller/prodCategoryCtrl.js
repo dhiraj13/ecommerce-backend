@@ -13,6 +13,7 @@ const createCategory = asyncHandler(async (req, res) => {
 
 const updateCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  validateMongoDbId(id);
   try {
     const updatedCategory = await Category.findByIdAndUpdate(id, req.body, {
       new: true,
@@ -23,4 +24,15 @@ const updateCategory = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { createCategory, updateCategory };
+const deleteCategory = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const deletedCategory = await Category.findByIdAndDelete(id);
+    res.json(deletedCategory);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+module.exports = { createCategory, updateCategory, deleteCategory };
