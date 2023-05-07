@@ -46,9 +46,19 @@ const getCategory = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllCategory = asyncHandler(async (req, res) => {
+  try {
+    const allCategory = await Category.find();
+    res.json(allCategory);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 module.exports = {
   createCategory,
   updateCategory,
   deleteCategory,
   getCategory,
+  getAllCategory,
 };
