@@ -256,7 +256,7 @@ const forgotPasswordToken = asyncHandler(async (req, res) => {
     sendEmail(data);
     res.json(token);
   } catch (error) {
-    throw new Error();
+    throw new Error(error);
   }
 });
 
@@ -276,6 +276,16 @@ const resetPassword = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
+const getWishlist = asyncHandler(async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const findUser = await User.findById(_id).populate("wishlist");
+    res.json(findUser);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 module.exports = {
   createUser,
   loginUser,
@@ -291,4 +301,5 @@ module.exports = {
   updatePassword,
   forgotPasswordToken,
   resetPassword,
+  getWishlist,
 };
