@@ -1,6 +1,5 @@
 const cloudinary = require("cloudinary");
 
-// Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.API_KEY,
@@ -23,7 +22,6 @@ const cloudinaryUploadImg = async (fileToUploads) => {
     });
   });
 };
-
 const cloudinaryDeleteImg = async (fileToDelete) => {
   return new Promise((resolve) => {
     cloudinary.uploader.destroy(fileToDelete, (result) => {
