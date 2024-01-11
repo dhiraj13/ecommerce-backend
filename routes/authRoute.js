@@ -41,7 +41,7 @@ router.get("/all-users", getAllUser)
 router.get("/get-my-orders", authMiddleware, getMyOrders)
 router.get("/wishlist", authMiddleware, getWishlist)
 router.get("/cart", authMiddleware, getUserCart)
-router.get("/:id", authMiddleware, isAdmin, getUser)
+router.get("/:id", authMiddleware, getUser)
 router.delete(
   "/delete-cart-product/:cartItemId",
   authMiddleware,

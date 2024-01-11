@@ -1,5 +1,5 @@
-const nodemailer = require("nodemailer");
-const asyncHandler = require("express-async-handler");
+const nodemailer = require("nodemailer")
+const asyncHandler = require("express-async-handler")
 
 const sendEmail = asyncHandler(async (data, req, res) => {
   let transporter = nodemailer.createTransport({
@@ -10,7 +10,7 @@ const sendEmail = asyncHandler(async (data, req, res) => {
       user: process.env.MAIL_ID, // generated ethereal user
       pass: process.env.MP, // generated ethereal password
     },
-  });
+  })
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
@@ -19,14 +19,14 @@ const sendEmail = asyncHandler(async (data, req, res) => {
     subject: data.subject, // Subject line
     text: data.text, // plain text body
     html: data.htm, // html body
-  });
+  })
 
-  console.log("Message sent: %s", info.messageId);
+  console.log("Message sent: %s", info.messageId)
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
   // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info))
   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-});
+})
 
-module.exports = { sendEmail };
+module.exports = { sendEmail }
