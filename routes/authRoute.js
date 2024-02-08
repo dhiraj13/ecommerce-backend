@@ -22,6 +22,8 @@ const {
   removeProductFromCart,
   updateProductQuantityFromCart,
   getMyOrders,
+  getMonthWiseOrderIncome,
+  getYearlyTotalOrders,
 } = require("../controller/userCtrl")
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware")
 const router = express.Router()
@@ -41,6 +43,12 @@ router.get("/all-users", getAllUser)
 router.get("/get-my-orders", authMiddleware, getMyOrders)
 router.get("/wishlist", authMiddleware, getWishlist)
 router.get("/cart", authMiddleware, getUserCart)
+router.get(
+  "/get-month-wise-order-income",
+  authMiddleware,
+  getMonthWiseOrderIncome
+)
+router.get("/get-yearly-total-orders", authMiddleware, getYearlyTotalOrders)
 router.get("/:id", authMiddleware, getUser)
 router.delete(
   "/delete-cart-product/:cartItemId",
