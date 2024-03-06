@@ -410,12 +410,26 @@ const getMyOrders = asyncHandler(async (req, res) => {
   const { _id } = req.user
   try {
     const orders = await Order.find({ user: _id })
-      .populate("user")
-      .populate("orderItems.product")
-      .populate("orderItems.color")
-    res.json({
-      orders,
-    })
+    res.json(orders)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find().populate("user")
+    res.json(orders)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+const getSingleOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  try {
+    const orders = await Order.findOne({ _id: id })
+    res.json(orders)
   } catch (error) {
     throw new Error(error)
   }
@@ -530,6 +544,8 @@ module.exports = {
   removeProductFromCart,
   updateProductQuantityFromCart,
   getMyOrders,
+  getAllOrders,
+  getSingleOrder,
   getMonthWiseOrderIncome,
   getYearlyTotalOrders,
 }

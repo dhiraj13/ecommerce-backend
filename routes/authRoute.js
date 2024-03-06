@@ -24,6 +24,8 @@ const {
   getMyOrders,
   getMonthWiseOrderIncome,
   getYearlyTotalOrders,
+  getAllOrders,
+  getSingleOrder,
 } = require("../controller/userCtrl")
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware")
 const router = express.Router()
@@ -41,6 +43,8 @@ router.post("/forgot-password-token", forgotPasswordToken)
 router.put("/reset-password/:token", resetPassword)
 router.get("/all-users", getAllUser)
 router.get("/get-my-orders", authMiddleware, getMyOrders)
+router.get("/get-all-orders", authMiddleware, getAllOrders)
+router.get("/get-order/:id", authMiddleware, getSingleOrder)
 router.get("/wishlist", authMiddleware, getWishlist)
 router.get("/cart", authMiddleware, getUserCart)
 router.get(
