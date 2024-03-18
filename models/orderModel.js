@@ -29,9 +29,12 @@ var orderSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      other: {
+      country: {
         type: String,
         required: true,
+      },
+      other: {
+        type: String,
       },
       pincode: {
         type: Number,
@@ -39,13 +42,25 @@ var orderSchema = new mongoose.Schema(
       },
     },
     paymentInfo: {
-      razorpayOrderId: {
-        type: String,
-        required: true,
+      amount: {
+        currency_code: {
+          type: String,
+          required: true,
+        },
+        value: {
+          type: String,
+          required: true,
+        },
       },
-      razorpayPaymentId: {
-        type: String,
-        required: true,
+      payee: {
+        email_address: {
+          type: String,
+          required: true,
+        },
+        merchant_id: {
+          type: String,
+          required: true,
+        },
       },
     },
     orderItems: [
@@ -57,7 +72,7 @@ var orderSchema = new mongoose.Schema(
         },
         color: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
+          ref: "Color",
           required: true,
         },
         quantity: {
@@ -80,7 +95,6 @@ var orderSchema = new mongoose.Schema(
     },
     totalPriceAfterDiscount: {
       type: Number,
-      required: true,
     },
     orderStatus: {
       type: String,
