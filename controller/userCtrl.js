@@ -432,7 +432,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
 const getAllOrders = asyncHandler(async (req, res) => {
   try {
-    const orders = await Order.find()
+    const orders = await Order.find().populate("user")
     res.json(orders)
   } catch (error) {
     throw new Error(error)
@@ -443,7 +443,22 @@ const getSingleOrder = asyncHandler(async (req, res) => {
   const { id } = req.params
   try {
     const orders = await Order.findOne({ _id: id })
+      .populate("orderItems.product")
+      .populate("orderItems.color")
     res.json(orders)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
+const updateOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  try {
+    const order = await Order.findById(id)
+    order.orderStatus = req.body.status
+    await order.save()
+
+    res.json(order)
   } catch (error) {
     throw new Error(error)
   }
@@ -535,6 +550,16 @@ const getYearlyTotalOrders = asyncHandler(async (req, res) => {
   res.json(data)
 })
 
+const deleteOrder = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  try {
+    const deleteOrder = await Order.findOneAndDelete(id)
+    res.json(deleteOrder)
+  } catch (error) {
+    throw new Error(error)
+  }
+})
+
 module.exports = {
   createUser,
   loginUser,
@@ -561,6 +586,8 @@ module.exports = {
   getMyOrders,
   getAllOrders,
   getSingleOrder,
+  updateOrder,
   getMonthWiseOrderIncome,
   getYearlyTotalOrders,
+  deleteOrder,
 }
