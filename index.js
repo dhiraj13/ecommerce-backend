@@ -19,17 +19,9 @@ const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
 const cors = require("cors")
 
-const corsOptions = {
-  credentials: true,
-  origin: [
-    "http://localhost:5000",
-    "https://msrd-ecommerce-backend.vercel.app",
-  ],
-}
-
 dbConnect()
 app.use(morgan("dev"))
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
