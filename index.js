@@ -21,23 +21,7 @@ const cors = require("cors")
 
 dbConnect()
 app.use(morgan("dev"))
-// Define allowed origins based on environmen
-
-// Enable CORS for all requests
-app.use(
-  cors({
-    origin: "https://msrd-ecomm-front.netlify.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-)
-
-// Use cors middleware with dynamic configuration
-app.use(
-  cors({
-    origin: allowedOrigins,
-  })
-)
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
