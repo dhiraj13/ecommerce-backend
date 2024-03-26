@@ -23,7 +23,7 @@ dbConnect()
 app.use(morgan("dev"))
 app.use(
   cors({
-    origin: "https://msrd-ecomm-front.netlify.app",
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
