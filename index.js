@@ -24,7 +24,7 @@ app.use(morgan("dev"))
 // Define allowed origins based on environment
 let allowedOrigins
 if (process.env.NODE_ENV === "production") {
-  allowedOrigins = ["https://msrd-ecommerce-backend.vercel.app/api"]
+  allowedOrigins = ["https://msrd-ecomm-front.netlify.app"]
 } else if (process.env.NODE_ENV === "development") {
   allowedOrigins = ["http://localhost:5000/api"]
 }
