@@ -21,7 +21,29 @@ const cors = require("cors")
 
 dbConnect()
 app.use(morgan("dev"))
-app.use(cors())
+// Define allowed origins based on environment
+let allowedOrigins
+if (process.env.NODE_ENV === "production") {
+  allowedOrigins = ["https://msrd-ecommerce-backend.vercel.app/api"]
+} else if (process.env.NODE_ENV === "development") {
+  allowedOrigins = ["http://localhost:5000/api"]
+}
+
+// Middleware to handle pre-flight requests
+app.options(
+  "*",
+  cors({
+    origin: allowedOrigins,
+    optionsSuccessStatus: 200,
+  })
+)
+
+// Use cors middleware with dynamic configuration
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
