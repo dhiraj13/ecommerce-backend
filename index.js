@@ -21,6 +21,11 @@ const cors = require("cors")
 
 dbConnect()
 app.use(morgan("dev"))
+app.use((req, res, next) => {
+  console.log("Request Origin:", req.get("Origin")) // Logging origin header
+  console.log("Request Method:", req.method) // Logging request method
+  next()
+})
 app.use(
   cors({
     origin: "*",
