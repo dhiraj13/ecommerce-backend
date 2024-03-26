@@ -21,7 +21,13 @@ const cors = require("cors")
 
 dbConnect()
 app.use(morgan("dev"))
-app.use(cors())
+app.use(
+  cors({
+    origin: "https://msrd-ecomm-front.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
