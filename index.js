@@ -21,20 +21,14 @@ const cors = require("cors")
 
 dbConnect()
 app.use(morgan("dev"))
-// Define allowed origins based on environment
-let allowedOrigins
-if (process.env.NODE_ENV === "production") {
-  allowedOrigins = ["https://msrd-ecomm-front.netlify.app"]
-} else if (process.env.NODE_ENV === "development") {
-  allowedOrigins = ["http://localhost:5000/api"]
-}
+// Define allowed origins based on environmen
 
-// Middleware to handle pre-flight requests
-app.options(
-  "*",
+// Enable CORS for all requests
+app.use(
   cors({
-    origin: allowedOrigins,
-    optionsSuccessStatus: 200,
+    origin: "https://msrd-ecomm-front.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 )
 
